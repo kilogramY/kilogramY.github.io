@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>성신여자대학교 분반교환시스템</title>
+<script>
+	function doLogin() {
+		
+		if(document.formLogin.email.value.length == 0) { 
+	      alert("이메일을 입력하세요."); 
+	      document.formLogin.email.focus();
+	      return;
+	    } 
+		
+		var filter = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		if (filter.test(document.formLogin.email.value)!=true){
+		  alert('이메일 형식이 올바르지 않습니다.');
+		  document.formLogin.email.focus();
+		  return;
+		}
+		
+		if(document.formLogin.passwd.value.length == 0) { 
+	      alert("패스워드를 입력하세요."); 
+	      document.formLogin.passwd.focus();
+	      return;
+	    }
+		
+		document.formLogin.target='_self';
+		document.formLogin.action='main.jsp';
+		document.formLogin.submit();
+	} 
+	
+	function openPopup(){
+		window.open("./findEmailPopup.jsp","성신여자대학교 분반 변경 시스템", "width=600, height=400, left=100, top=50");
+	}
+	
+	function findPasswd() {
+		if(document.findPW.email.value.length == 0) { 
+		      alert("이메일을 입력하세요."); 
+		      document.findPW.email.focus();
+		      return;
+		}
+		var filter = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		if (filter.test(document.findPW.email.value)!=true) {
+			  alert('이메일 형식이 올바르지 않습니다.');
+			  document.findPW.email.focus();
+			  return;
+		}
+		if(document.findPW.stu_no.value.length == 0) { 
+		      alert("학번을 입력하세요."); 
+		      document.findPW.stu_no.focus();
+		      return;
+		}
+		if(isNaN(document.findPW.stu_no.value)) { 
+		      alert("학번은 숫자로만 입력해주세요."); 
+		      document.findPW.stu_no.focus();
+		      return;
+		}
+		
+		document.findPW.target='_self';
+		document.findPW.action='findPW';
+		document.findPW.submit();
+	}
+</script>
+<style>	
+	html,body {height:100%; margin:0px; padding:0px; font-size:0.9em;}
+	
+	div.top {display:table; width:100%; height:22%; margin:0px; }
+	div.topcell {display:table-cell; width:100%; margin:0px; vertical-align:middle;}
+	table#login {width:400px; text-align:center; padding:40px 40px 40px 15px; }
+	div.logo {display:inline-block; margin:0px 15px 0px 0px; float:right;}
+	
+	div.bottom {display:table; width:100%; height:78%; background-color:#e7e7f7; margin:0px; text-align: right; padding-right: 10px;}
+	div.bottomcell {display:table-cell; width:100%; vertical-align:middle; text-align:center;}
+	div.find {display:inline-block; width:450px; height:450px; background-color:white; margin:15px; border:solid 1px gray; border-radius:15px;}
+	
+</style>
+</head>
+<body>
+	<div class="top">
+		<div class="topcell">
+			<form method="post" name="formLogin" style="display:inline-block;">
+				<table id="login">
+						<tr>
+							<td>이   메   일: <input type="email" name="email" size="20" tabindex="1"></td>
+							<td rowspan=2><input type="button" id="login" value="로그인" onClick="doLogin()" tabindex="3"></td>
+						</tr>
+						<tr>
+							<td>비밀번호: <input type="password" name="passwd" tabindex="2"></td>
+						</tr>			 
+						<tr>
+							<td><a href="">아이디/비밀번호찾기</a></td>
+							<td><a href="./register.jsp">회원가입</a></td>
+						</tr>
+				</table>
+			</form>
+			<div class="logo">
+				<table>
+					<tr>
+						<td style="width:34%; valign:middle;"><a href="./main.html"><img src="./image/img_symbol.png" width="100%"></a></td>
+						<td style="valign:middle; text-align:center"><a href="./main.html">
+						<h2>성 신 여 자 대 학 교<br>
+						분 반 교 환 시 스 템<br>
+						SungShin W Univ.<br>
+						Class Exchange System</h2>
+						</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<div class="bottomcell">
+			<div class="find">
+				<div style="position:relative; top:20%; text-align:left; padding:0px 30px;">
+					- 가입한 이메일을 잊으셨나요?
+					<input type="button" value="이메일 조회하기" onclick="openPopup()" style="float:right;"><br><br><br><br>
+					
+					- 비밀번호를 잊으셨나요?
+					<form method="post" name="findPW">
+						<table style="margin:10px 30px;">
+							<tr>
+								<td>이메일 주소:</td>
+								<td><input type="email" name="email" size="20"></td>
+							</tr>
+							<tr>
+								<td>학번:</td>
+								<td><input type="text" name="stu_no"></td>
+							</tr>
+						</table>
+						<input type="button" value="비밀번호 찾기" onclick="findPasswd()" style="float:right;">
+					</form>
+					<br>
+					<br>
+					<font color="gray" size=2>&nbsp;&nbsp;&nbsp;*입력하신 정보가 인증되면 해당 주소로<br>&nbsp;&nbsp;&nbsp;비밀번호 변경 링크를 보내드립니다.<br>
+					&nbsp;&nbsp;&nbsp;*몇 초정도 소요되므로 인증완료 메세지가 뜰 때까지 잠시만<br>&nbsp;&nbsp;&nbsp;기다려주시기 바랍니다.</font><br>
+					<font color="red">&nbsp;&nbsp;&nbsp;*비밀번호 변경 링크는 발송 후 10분이 지나면 폐기됩니다.</font>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
